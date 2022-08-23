@@ -33,7 +33,7 @@ rule3 = pd.merge(
     how='cross',
 )
 
-mostly_engine.core.train(rules=[rule1, rule2, rule3], rule_weight=10.0)
+mostly_engine.core.train(rules=[rule1, rule2, rule3], rule_weight=1.0)
 
 # persist rules
 rule1.to_csv('rule1.csv', index=False)

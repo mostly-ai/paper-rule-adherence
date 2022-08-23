@@ -1,13 +1,14 @@
 import os
 import pandas as pd
+import numpy as np
 import mostly_engine.core
 
-## Split DATA
+## SPLIT data
 
-cols = ['age', 'workclass', 'education', 'education-num', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'hours-per-week', 'income']
-
-df = pd.read_csv('adult_original.csv.gz')[cols]
+df = pd.read_csv('adult_original.csv.gz')
 df = df.loc[df['marital-status'] != 'Married-AF-spouse', :]
+cols = ['age', 'education', 'education-num', 'marital-status', 'relationship', 'income']
+df = df[cols]
 
 trn = df.sample(n=2_000, random_state=0)
 hol = df.drop(trn.index, axis=0)
@@ -15,7 +16,8 @@ hol = df.drop(trn.index, axis=0)
 trn.to_csv('adult_original_2k.csv.gz', index=False)
 hol.to_csv('adult_original_holdout.csv.gz', index=False)
 
-## Prepare DATA
+
+## ENCODE data
 
 mostly_engine.core.split(
     'adult_original_2k.csv.gz',
