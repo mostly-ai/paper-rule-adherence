@@ -7,7 +7,7 @@ import mostly_engine.core
 
 df = pd.read_csv('data/adult_original.csv.gz')
 df = df.loc[df['marital-status'] != 'Married-AF-spouse', :]
-cols = ['age', 'education', 'education-num', 'marital-status', 'relationship', 'income']
+cols = ['age', 'education', 'education-num', 'marital-status', 'relationship', 'sex', 'income']
 df = df[cols]
 
 trn = df.sample(n=2_000)
@@ -56,6 +56,13 @@ rule3 = pd.merge(
     pd.Series(['Prof-school', 'Doctorate'], name='education'),
     how='cross',
 )
+
+rule4 = pd.DataFrame({
+    'sex': ['Female', 'Male'],
+    'relationship': ['Husband', 'Wife'],
+})
+
 rule1.to_csv('rules/rule1.csv', index=False)
 rule2.to_csv('rules/rule2.csv', index=False)
 rule3.to_csv('rules/rule3.csv', index=False)
+rule4.to_csv('rules/rule4.csv', index=False)
